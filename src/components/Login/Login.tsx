@@ -17,10 +17,6 @@ function Login({ setToken }) {
     const [username, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-    useEffect(() => {
-        
-    })
-
     const handleSubmit = async e => {
         e.preventDefault();
         const token = await loginUser({

@@ -1,69 +1,37 @@
-import axios from 'axios';
-import React from 'react';
-import { BASE_URL } from '../../../config';
+import React from "react";
+import { Button, Card } from "react-bootstrap";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import MapChart from '../Map/Map';
 
-class Sito extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            data: []
-        }
-    }
+function SitoTemplate({ sito }) {
 
-    getSiti() {
-        return axios.get(BASE_URL+`sito/`).then(res => {
-            return res.data;
+    const navigate = useNavigate();
+
+    const navigateToNext = (id, nome) => {
+        navigate({
+            pathname: '/installations',
+            search: createSearchParams({
+                id: id,
+                nome: nome
+            }).toString()
         })
     }
 
-    handleGetSiti = async () =>{
-        this.setState({data: await this.getSiti()});
-    }
-
-    componentDidMount() {
-    }
-
-    render() {
-        return (
-            <>
-                <button onClick={this.handleGetSiti}>GET SITI</button>
-                {
-                    this.state.data.map(data => (<li key={data.id}>{data.nome} - {data.ubicazione} </li>))
-                }
-            </>
-        );
-    }
+    return (
+        <>
+            <div className="container">
+                <Card style={{ width: '18rem' }}>
+                    <Card.Body>
+                        <Card.Title>{sito.nome}</Card.Title>
+                        <Card.Text>
+                            {sito.ubicazione}
+                        </Card.Text>
+                        <Button variant="primary" onClick={() => navigateToNext(sito.id, sito.nome)}>Go to installation</Button>
+                    </Card.Body>
+                </Card>
+            </div>
+        </>
+    );
 }
 
-export default Sito;
-
-// import axios from 'axios';
-// import React from 'react';
-// import { useEffect, useState } from 'react';
-
-// function Sito() {
-
-//     const [list, setList] = useState([]);
-
-//     async function getSiti() {
-//         return (await axios.get('http://localhost:8000/oye/sito/')).data
-//     }
-
-//     const handleGetSiti = async s => {
-//         const siti = await getSiti();
-//         setList(siti);
-//     }
-
-//     useEffect(() => {
-        
-//     }, [])
-
-//     return (
-//         <>
-//             <button onClick={handleGetSiti}>CLICCAMI</button>
-//             {list.forEach(val => <h3 key={val.id}>{val.id}</h3>)}
-//         </>
-//     );
-// }
-
-// export default Sito;
+export default SitoTemplate;
