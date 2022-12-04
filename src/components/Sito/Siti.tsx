@@ -9,13 +9,16 @@ class Siti extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            error: ''
         }
     }
 
     getSiti() {
         return axios.get(BASE_URL+`sito/`).then(res => {
             return res.data;
+        }).catch(err => {
+            this.setState({error: err.message});
         })
     }
 
@@ -37,9 +40,10 @@ class Siti extends React.Component {
                 <div className='container'>
                     <div className='sito-cards'>
                     {
+                        this.state['data'] ? 
                         this.state['data'].map(data => (
                             <SitoTemplate key={this.getRandomKey()} sito={data}></SitoTemplate>
-                        ))
+                            )) : (<p key={this.getRandomKey()}>{this.state['error']}</p>)
                     }
                     </div>
                     <MapChart></MapChart>
