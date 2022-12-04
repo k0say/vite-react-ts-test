@@ -11,7 +11,7 @@ class Sito extends React.Component {
     }
 
     getSiti() {
-        return axios.get(BASE_URL).then(res => {
+        return axios.get(BASE_URL+`sito/`).then(res => {
             return res.data;
         })
     }
