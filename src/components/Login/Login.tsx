@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import React from 'react';
+import { LOGIN_URL } from '../../../config';
 
 async function loginUser(credentials) {
-        return axios.post('http://localhost:8000/get-token/', {
+        return axios.post(LOGIN_URL, {
             username: credentials.username,
             password: credentials.password
         }).then(data => data.data)
@@ -26,7 +27,6 @@ function Login({ setToken }) {
             username,
             password
         })
-        // localStorage.setItem('token', JSON.stringify(token))
         setToken(token);
     }
 

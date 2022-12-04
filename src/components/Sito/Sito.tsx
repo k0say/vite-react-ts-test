@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React from 'react';
+import { BASE_URL } from '../../../config';
 
 class Sito extends React.Component {
     constructor(props) {
@@ -10,20 +11,16 @@ class Sito extends React.Component {
     }
 
     getSiti() {
-        return axios.get('http://localhost:8000/oye/sito/').then(res => {
+        return axios.get(BASE_URL).then(res => {
             return res.data;
-            // this.setState({ data: data });
         })
     }
 
     handleGetSiti = async () =>{
         this.setState({data: await this.getSiti()});
-        // const x = await this.getSiti();
-        // console.log(x)
     }
 
     componentDidMount() {
-        // this.getSiti()
     }
 
     render() {
